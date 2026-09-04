@@ -22,7 +22,7 @@ services:
 
   raw_producer:
     build: .
-    command: python src/raw_producer.py
+    command: python src/python_services/raw_producer.py
     depends_on:
       - kafka
     environment:
@@ -31,7 +31,7 @@ services:
 
   processing_service:
     build: .
-    command: python src/processing_service.py
+    command: python src/python_services/processing_service.py
     depends_on:
       - kafka
     environment:
