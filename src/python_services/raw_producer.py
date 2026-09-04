@@ -11,7 +11,7 @@ def delivery_report(err, msg):
         print(f"Send to:", msg.topic())
 
 def get_kafka_producer():
-    config = {"bootstrap.servers": "kafka:9092"}
+    config = {"bootstrap.servers": "localhost:9092"}
     return Producer(config)
 
 def produce_from_csv(filepath, producer, topicname):
@@ -30,7 +30,7 @@ def produce_from_csv(filepath, producer, topicname):
 
 def main():
 
-    filepath = "../data/developer_ai_learning_raw.csv"
+    filepath = "data/developer_ai_learning_raw.csv"
     topic_name = "raw_topic"
 
     producer = get_kafka_producer()

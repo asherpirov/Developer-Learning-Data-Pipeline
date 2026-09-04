@@ -41,13 +41,13 @@ def process_record(raw_dict):
 
 def main():
     consumer_conf = {
-        'bootstrap.servers': 'kafka:9092',
+        'bootstrap.servers': 'localhost:9092',
         'group.id': 'processing_service_group',
         'auto.offset.reset': 'earliest'
     }
 
     producer_conf = {
-        'bootstrap.servers': 'kafka:9092'
+        'bootstrap.servers': 'localhost:9092'
     }
 
     consumer = Consumer(consumer_conf)

@@ -36,3 +36,14 @@ services:
       - kafka
     environment:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+
+  data_consumer:
+    build:
+      context: ./src/DataConsumer
+      dockerfile: Dockerfile
+    container_name: data_consumer
+    depends_on:
+      - kafka
+    environment:
+      - KafkaSettings__BootstrapServers=kafka:9092
+    restart: always
