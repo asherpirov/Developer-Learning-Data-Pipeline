@@ -1,5 +1,6 @@
 from confluent_kafka import Producer, Consumer
 import json
+import os
 
 def delivery_report(err, msg):
     if err is not None:
@@ -34,20 +35,25 @@ def process_record(raw_dict):
         "yearsCode": years_code,
         "experienceLevel": experience_level,
         "devType": raw_dict.get("DevType"),
+        "usesDocumentation": raw_dict.get("UsesDocumentation"),  # או איך שזה נקרא ב-CSV
+        "usesAIForLearning": raw_dict.get("UsesAIForLearning"),
+        "aiAcc": raw_dict.get("AiAcc"),
         "status": "processed"
     }
     return processed
 
 
 def main():
+    bootstrap_servers = os.environ.get("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
+
     consumer_conf = {
-        'bootstrap.servers': 'localhost:9092',
+        'bootstrap.servers': bootstrap_servers,
         'group.id': 'processing_service_group',
         'auto.offset.reset': 'earliest'
     }
 
     producer_conf = {
-        'bootstrap.servers': 'localhost:9092'
+        'bootstrap.servers': bootstrap_servers
     }
 
     consumer = Consumer(consumer_conf)

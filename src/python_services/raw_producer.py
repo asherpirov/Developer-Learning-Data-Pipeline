@@ -2,6 +2,7 @@ from confluent_kafka import Producer
 import time
 import csv
 import json
+import os
 
 
 def delivery_report(err, msg):
@@ -11,7 +12,8 @@ def delivery_report(err, msg):
         print(f"Send to:", msg.topic())
 
 def get_kafka_producer():
-    config = {"bootstrap.servers": "localhost:9092"}
+    bootstrap_servers = os.environ.get("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
+    config = {"bootstrap.servers": bootstrap_servers}
     return Producer(config)
 
 def produce_from_csv(filepath, producer, topicname):
